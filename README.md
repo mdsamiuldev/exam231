@@ -51,24 +51,20 @@ A community-driven event management platform where citizens, grassroots voluntee
 
 ## 🚀 Running Locally
 
-1. **Clone the repository:**
-   ```bash
-   git clone <repo-url>
-   cd social-events-client
-   ```
 
-2. **Install dependencies:**
+
+ **Install dependencies:**
    ```bash
    npm install
    ```
 
-3. **Set up environment variables:**
+ **Set up environment variables:**
    ```bash
    cp .env.example .env.local
    ```
    *(Optional: configure `MONGODB_URI` and OAuth keys; the application boots seamlessly with the built-in mock database if unset).*
 
-4. **Start the development server:**
+ **Start the development server:**
    ```bash
    npm run dev
    ```
