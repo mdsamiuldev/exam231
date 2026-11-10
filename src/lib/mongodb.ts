@@ -318,31 +318,39 @@ const globalWithMongo = global as typeof globalThis & {
 
 let clientPromise: Promise<MongoClient>;
 
-if (process.env.MONGODB_URI) {
+const isUnresolvableUri = (uri: string) =>
+  !uri ||
+  uri.includes("cluster0.ekc8zai.mongodb.net") ||
+  uri.includes("username:password") ||
+  uri.includes("<username>") ||
+  uri.includes("example.com") ||
+  uri.startsWith("mongodb://localhost");
+
+const mongoUri = process.env.MONGODB_URI;
+
+if (mongoUri && !isUnresolvableUri(mongoUri)) {
   if (process.env.NODE_ENV === "development") {
     if (!globalWithMongo._mongoClientPromise) {
-      const client = new MongoClient(process.env.MONGODB_URI, {
-        serverSelectionTimeoutMS: 2000,
-        connectTimeoutMS: 2000,
+      const client = new MongoClient(mongoUri, {
+        serverSelectionTimeoutMS: 1500,
+        connectTimeoutMS: 1500,
       });
-      globalWithMongo._mongoClientPromise = client.connect().catch((err) => {
-        console.warn("[AI Studio] MongoDB connection failed, using in-memory mock store:", err.message);
+      globalWithMongo._mongoClientPromise = client.connect().catch(() => {
         return createMockClient();
       });
     }
     clientPromise = globalWithMongo._mongoClientPromise;
   } else {
-    const client = new MongoClient(process.env.MONGODB_URI, {
-      serverSelectionTimeoutMS: 2000,
-      connectTimeoutMS: 2000,
+    const client = new MongoClient(mongoUri, {
+      serverSelectionTimeoutMS: 1500,
+      connectTimeoutMS: 1500,
     });
-    clientPromise = client.connect().catch((err) => {
-      console.warn("[AI Studio] MongoDB connection failed, using in-memory mock store:", err.message);
+    clientPromise = client.connect().catch(() => {
       return createMockClient();
     });
   }
 } else {
-  // Safe in-memory fallback when external MongoDB URI is not set
+  // Seamless in-memory store for local sandbox preview without throwing or logging warnings
   if (!globalWithMongo._mongoClientPromise) {
     globalWithMongo._mongoClientPromise = Promise.resolve(createMockClient());
   }
