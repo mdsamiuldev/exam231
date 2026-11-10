@@ -2,11 +2,7 @@
 
 A community-driven event management platform where citizens, grassroots volunteers, and non-profits create, join, and track social welfare and environmental initiatives across Dhaka and greater Bangladesh.
 
-### 🌐 Live Application
-- **Live Deployment URL:** [https://ais-dev-pdwioijd5pyoafqyc62r2m-371423969760.asia-northeast1.run.app]
-- **Shared App URL:** [https://ais-pre-pdwioijd5pyoafqyc62r2m-371423969760.asia-northeast1.run.app](
 
----
 
 ## ✨ Key Platform Features
 
