@@ -1,0 +1,6 @@
+{
+  "name": "Social Development Events",
+  "description": "Empowering communities and organizing social development events.",
+  "prompt": "Social Development Events platform imported from GitHub",
+  "capabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
